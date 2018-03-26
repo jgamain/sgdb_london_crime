@@ -15,7 +15,6 @@ object LondonCrime {
   }
 
   def main (arg: Array[String]): Unit = {
-    println("Hello !");
 
     val sparkSession = SparkSession.builder
       .master("local")
@@ -23,10 +22,11 @@ object LondonCrime {
       .getOrCreate()
     import sparkSession.implicits._
 
-    val dataFolder = "C:\\Users\\Jeanne\\Documents\\Data\\london_crime\\"
+    val dataFolder = "./"
 
     val londonCrimes = readCsv(sparkSession, dataFolder + "london_crime_by_lsoa.csv")
 
+    /*
     val crimes2016 = londonCrimes
       .filter($"year" === "2016")
       //.filter($"value" =!= "0")
@@ -56,10 +56,7 @@ object LondonCrime {
     //totalCrimeByBoroughByYear.orderBy((desc("borough")),(desc("year"))).show
 
 
-    
-
     // *****************   category and avg per year *************** //
-
 
     val crimeByCategoryByBoroughByYear = londonCrimes
       .groupBy("year","borough","major_category")
@@ -75,6 +72,7 @@ object LondonCrime {
       .groupBy("borough","major_category")
       .avg("sum(value)")
       .withColumnRenamed("avg(sum(value))", "averagePerYear")
+      .withColumn("averagePerYear", $"averagePerYear".cast(IntegerType))
       .select("borough", "major_category","averagePerYear")
 
     //crimeByCategoryByBoroughAvgPerYear.orderBy((desc("borough")),(desc(("averagePerYear")))).show(false)
@@ -89,7 +87,6 @@ object LondonCrime {
       .select("minor_category","averagePerYear")
 
     //crimeByMinorCategoryAvgPerYear.orderBy(desc("averagePerYear")).show(false)
-
 
 
     // *****************   diff_2008_2016_by_borough *************** //
@@ -122,8 +119,112 @@ object LondonCrime {
       .withColumn("diff", col("df2016.nbCrime2016") - col("df2008.nbCrime2008"))
       .select("borough", "nbCrime2008", "nbCrime2016", "diff")
 
-    diff_2008_2016_by_borough.orderBy(asc("borough")).show(false)
+    //diff_2008_2016_by_borough.orderBy(asc("borough")).show(false)
 
+*/
+
+
+    // ****************** DANS QUELS QUARTIERS LA CRIMINALITÉ EST-ELLE LA PLUS ÉLEVÉE ? ***************** //
+
+    val crimeByBorough = londonCrimes
+      .groupBy("borough","year")
+      .sum("value")
+      .groupBy("borough")
+      .avg("sum(value)")
+      .withColumnRenamed("avg(sum(value))","avgCrimesPerYear")
+      .withColumn("avgCrimesPerYear", $"avgCrimesPerYear".cast(IntegerType))
+      .select("borough", "avgCrimesPerYear")
+
+    //val crimeByBoroughOrderByTotal = crimeByBorough.orderBy((desc("avgCrimesPerYear")))
+
+    //crimeByBoroughOrderByTotal.show(false)
+
+
+    // ****************** QUELS SONT LES CRIMES LES PLUS COURANTS ? ******************* //
+
+    val crimeByMajorCategoryAvg = londonCrimes
+      .groupBy("year","major_category")
+      .sum("value")
+      .groupBy("major_category")
+      .avg("sum(value)")
+      .withColumnRenamed("avg(sum(value))", "averagePerYear")
+      .withColumn("averagePerYear", $"averagePerYear".cast(IntegerType))
+      .select("major_category","averagePerYear")
+
+    //crimeByMajorCategoryAvg.orderBy(desc("averagePerYear")).show(false)
+
+    val crimeByMinorCategoryAvg = londonCrimes
+      .groupBy("year","minor_category")
+      .sum("value")
+      .groupBy("minor_category")
+      .avg("sum(value)")
+      .withColumnRenamed("avg(sum(value))", "averagePerYear")
+      .withColumn("averagePerYear", $"averagePerYear".cast(IntegerType))
+      .select("minor_category","averagePerYear")
+
+    //crimeByMinorCategoryAvg.orderBy(desc("averagePerYear")).show(50, false)
+
+
+    // ************ QUELS SONT LES CRIMES LES PLUS COURANTS À WESTMINSTER? ******************* //
+
+    val crimeWestminsterMajorAvg = londonCrimes
+      .filter($"borough" === "Westminster")
+      .groupBy("year","major_category")
+      .sum("value")
+      .groupBy("major_category")
+      .avg("sum(value)")
+      .withColumnRenamed("avg(sum(value))", "avgPerYear")
+      .withColumn("avgPerYear", $"avgPerYear".cast(IntegerType))
+      .select("major_category","avgPerYear")
+
+    //crimeWestminsterMajorAvg.orderBy(desc("avgPerYear")).show(false)
+
+    val westminsterTheftsAvg = londonCrimes
+      .filter($"borough" === "Westminster")
+      .filter($"major_category" === "Theft and Handling")
+      .groupBy("year","minor_category")
+      .sum("value")
+      .groupBy("minor_category")
+      .avg("sum(value)")
+      .withColumnRenamed("avg(sum(value))", "avgPerYear")
+      .withColumn("avgPerYear", $"avgPerYear".cast(IntegerType))
+      .select("minor_category","avgPerYear")
+
+    //westminsterTheftsAvg.orderBy(desc("avgPerYear")).show(false)
+
+
+
+    // ************ COMMENT ÉVOLUE LE NOMBRE DE CRIMES AU COURT DE L’ANNÉE ? ******************* //
+
+    val months = readCsv(sparkSession, dataFolder + "months.csv").as("m")
+
+    val crimes = londonCrimes.as("c")
+
+    val crimeByMonth = crimes
+      .join(months, $"c.month" === $"m.month_id")
+      .groupBy("c.year", "m.month_id","m.month_name")
+      .sum("value")
+      .withColumnRenamed("sum(value)", "total")
+      .select("c.year", "m.month_id", "m.month_name", "total")
+
+    //val crimeByMonthOrdered = crimeByMonth.orderBy(asc("c.year"), asc("m.month_id"))
+
+    //crimeByMonthOrdered.show(36)
+
+
+    val crimeByMonthAvg = crimes
+      .join(months, $"c.month" === $"m.month_id")
+      .groupBy("c.year", "m.month_id","m.month_name")
+      .sum("value")
+      .groupBy("m.month_id","m.month_name")
+      .avg("sum(value)")
+      .withColumnRenamed("avg(sum(value))", "average")
+      .withColumn("average", $"average".cast(IntegerType))
+      .select("m.month_id", "m.month_name", "average")
+
+    val crimeByMonthAvgOrdered = crimeByMonthAvg.orderBy(asc("m.month_id"))
+
+    crimeByMonthAvgOrdered.show
 
   }
 }

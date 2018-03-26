@@ -13,3 +13,5 @@ buildNumber.properties
 
 .idea
 sgbd_london_crime.iml
+
+london_crime_by_lsoa.csv
