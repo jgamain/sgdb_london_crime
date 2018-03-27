@@ -139,6 +139,14 @@ object LondonCrime {
 
     //crimeByBoroughOrderByTotal.show(false)
 
+    /*EXPORT CSV*/
+    crimeByBorough
+      .repartition(1)
+      .write
+      .format("com.databricks.spark.csv")
+      .option("header",true)
+      .save("crimeByBorough.csv");
+
 
     // ****************** QUELS SONT LES CRIMES LES PLUS COURANTS ? ******************* //
 
@@ -153,6 +161,14 @@ object LondonCrime {
 
     //crimeByMajorCategoryAvg.orderBy(desc("averagePerYear")).show(false)
 
+    /*EXPORT CSV*/
+    crimeByMajorCategoryAvg
+      .repartition(1)
+      .write
+      .format("com.databricks.spark.csv")
+      .option("header",true)
+      .save("crimeByMajorCategoryAvg.csv");
+
     val crimeByMinorCategoryAvg = londonCrimes
       .groupBy("year","minor_category")
       .sum("value")
@@ -163,6 +179,14 @@ object LondonCrime {
       .select("minor_category","averagePerYear")
 
     //crimeByMinorCategoryAvg.orderBy(desc("averagePerYear")).show(50, false)
+
+    /*EXPORT CSV*/
+    crimeByMinorCategoryAvg
+      .repartition(1)
+      .write
+      .format("com.databricks.spark.csv")
+      .option("header",true)
+      .save("crimeByMinorCategoryAvg.csv");
 
 
     // ************ QUELS SONT LES CRIMES LES PLUS COURANTS À WESTMINSTER? ******************* //
@@ -179,6 +203,14 @@ object LondonCrime {
 
     //crimeWestminsterMajorAvg.orderBy(desc("avgPerYear")).show(false)
 
+    /*EXPORT CSV*/
+    crimeWestminsterMajorAvg
+      .repartition(1)
+      .write
+      .format("com.databricks.spark.csv")
+      .option("header",true)
+      .save("crimeWestminsterMajorAvg.csv");
+
     val westminsterTheftsAvg = londonCrimes
       .filter($"borough" === "Westminster")
       .filter($"major_category" === "Theft and Handling")
@@ -193,6 +225,13 @@ object LondonCrime {
     //westminsterTheftsAvg.orderBy(desc("avgPerYear")).show(false)
 
 
+    /*EXPORT CSV*/
+    westminsterTheftsAvg
+      .repartition(1)
+      .write
+      .format("com.databricks.spark.csv")
+      .option("header",true)
+      .save("westminsterTheftsAvg.csv");
 
     // ************ COMMENT ÉVOLUE LE NOMBRE DE CRIMES AU COURT DE L’ANNÉE ? ******************* //
 
@@ -211,8 +250,7 @@ object LondonCrime {
 
     //crimeByMonthOrdered.show(36)
 
-
-    val crimeByMonthAvg = crimes
+       val crimeByMonthAvg = crimes
       .join(months, $"c.month" === $"m.month_id")
       .groupBy("c.year", "m.month_id","m.month_name")
       .sum("value")
@@ -224,7 +262,15 @@ object LondonCrime {
 
     val crimeByMonthAvgOrdered = crimeByMonthAvg.orderBy(asc("m.month_id"))
 
-    crimeByMonthAvgOrdered.show
+    /*EXPORT CSV*/
+    crimeByMonthAvg
+      .repartition(1)
+      .write
+      .format("com.databricks.spark.csv")
+      .option("header",true)
+      .save("crimeByMonthAvg.csv");
+
+    //crimeByMonthAvgOrdered.show
 
   }
 }
