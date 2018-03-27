@@ -24,104 +24,7 @@ object LondonCrime {
 
     val dataFolder = "./"
 
-    val londonCrimes = readCsv(sparkSession, dataFolder + "london_crime_by_lsoa.csv")
-
-    /*
-    val crimes2016 = londonCrimes
-      .filter($"year" === "2016")
-      //.filter($"value" =!= "0")
-      .groupBy("major_category").sum("value")
-      .withColumnRenamed("sum(value)", "totalValue")
-      .select("major_category","totalValue")
-
-    //crimes2016.orderBy((desc("totalValue"))).show(false)
-
-
-    val crimeByYearByCategory = londonCrimes
-      .groupBy("year","major_category")
-      .sum("value")
-      .withColumnRenamed("sum(value)", "totalValue")
-      .select("year", "major_category","totalValue")
-
-
-    //crimeByYearByCategory.orderBy((desc("major_category")),(desc("year"))).show
-
-
-    val totalCrimeByBoroughByYear = londonCrimes
-      .groupBy("year","borough")
-      .sum("value")
-      .withColumnRenamed("sum(value)", "totalValue")
-      .select("year", "borough","totalValue")
-
-    //totalCrimeByBoroughByYear.orderBy((desc("borough")),(desc("year"))).show
-
-
-    // *****************   category and avg per year *************** //
-
-    val crimeByCategoryByBoroughByYear = londonCrimes
-      .groupBy("year","borough","major_category")
-      .sum("value")
-      .withColumnRenamed("sum(value)", "total")
-      .select("year","borough", "major_category","total")
-
-    //crimeByCategoryByBoroughByYear.orderBy((desc("borough")),(desc(("total")))).show(false)
-
-    val crimeByCategoryByBoroughAvgPerYear = londonCrimes
-      .groupBy("year","borough","major_category")
-      .sum("value")
-      .groupBy("borough","major_category")
-      .avg("sum(value)")
-      .withColumnRenamed("avg(sum(value))", "averagePerYear")
-      .withColumn("averagePerYear", $"averagePerYear".cast(IntegerType))
-      .select("borough", "major_category","averagePerYear")
-
-    //crimeByCategoryByBoroughAvgPerYear.orderBy((desc("borough")),(desc(("averagePerYear")))).show(false)
-
-
-    val crimeByMinorCategoryAvgPerYear = londonCrimes
-      .groupBy("year","minor_category")
-      .sum("value")
-      .groupBy("minor_category")
-      .avg("sum(value)")
-      .withColumnRenamed("avg(sum(value))", "averagePerYear")
-      .select("minor_category","averagePerYear")
-
-    //crimeByMinorCategoryAvgPerYear.orderBy(desc("averagePerYear")).show(false)
-
-
-    // *****************   diff_2008_2016_by_borough *************** //
-
-    val nbCrimeByBorough2008 = londonCrimes
-      .filter($"year" === "2008")
-      .groupBy("borough").sum("value")
-      .withColumnRenamed("sum(value)", "nbCrime2008")
-      .select("borough","nbCrime2008")
-
-    val nbCrimeByBorough2016 = londonCrimes
-      .filter($"year" === "2016")
-      .groupBy("borough").sum("value")
-      .withColumnRenamed("sum(value)", "nbCrime2016")
-      .select("borough","nbCrime2016")
-
-
-    val df_2016 = nbCrimeByBorough2016.as("df2016")
-    val df_2008 = nbCrimeByBorough2008.as("df2008")
-
-
-    val join2008_2016 = df_2016
-      .join(df_2008, col("df2016.borough") === col("df2008.borough"), "inner")
-      .select("df2016.borough", "df2008.nbCrime2008", "df2016.nbCrime2016")
-
-    //join2008_2016.orderBy(asc("borough")).show(false)
-
-
-    val diff_2008_2016_by_borough = join2008_2016
-      .withColumn("diff", col("df2016.nbCrime2016") - col("df2008.nbCrime2008"))
-      .select("borough", "nbCrime2008", "nbCrime2016", "diff")
-
-    //diff_2008_2016_by_borough.orderBy(asc("borough")).show(false)
-
-*/
+    val londonCrimes = readCsv(sparkSession, dataFolder + "london_crime_by_lsoa.csv").as("c")
 
 
     // ****************** DANS QUELS QUARTIERS LA CRIMINALITÉ EST-ELLE LA PLUS ÉLEVÉE ? ***************** //
@@ -133,7 +36,7 @@ object LondonCrime {
       .avg("sum(value)")
       .withColumnRenamed("avg(sum(value))","avgCrimesPerYear")
       .withColumn("avgCrimesPerYear", $"avgCrimesPerYear".cast(IntegerType))
-      .select("borough", "avgCrimesPerYear")
+      .select("borough", "avgCrimesPerYear").as("cb")
 
     //val crimeByBoroughOrderByTotal = crimeByBorough.orderBy((desc("avgCrimesPerYear")))
 
@@ -146,6 +49,38 @@ object LondonCrime {
       .format("com.databricks.spark.csv")
       .option("header",true)
       .save("crimeByBorough.csv");
+
+
+    //Taux de criminalité (en pourcentage)
+    val lsoaData = readCsv(sparkSession, dataFolder + "lsoa-data_iadatasheet1.csv").as("lsoa")
+
+    val populationByBorough = londonCrimes
+      .groupBy("lsoa_code", "borough")
+      .count()
+      .select("lsoa_code", "borough")
+      .join(lsoaData, $"lsoa.Codes"===$"c.lsoa_code")
+      .groupBy("borough")
+      .sum("2011")
+      .withColumnRenamed("sum(2011)", "population")
+      .select("borough", "population").as("pb")
+
+    //populationByBorough.show(30, false)
+
+    val criminality = crimeByBorough
+      .join(populationByBorough, $"cb.borough"===$"pb.borough")
+      .withColumn("rate", (col("cb.avgCrimesPerYear") / col("pb.population"))*100)
+      .withColumn("rate", $"rate".cast(IntegerType))
+      .select("cb.borough", "avgCrimesPerYear", "population", "rate")
+
+    //criminality.show(30, false)
+
+    /*EXPORT CSV*/
+    criminality
+      .repartition(1)
+      .write
+      .format("com.databricks.spark.csv")
+      .option("header",true)
+      .save("criminality.csv");
 
 
     // ****************** QUELS SONT LES CRIMES LES PLUS COURANTS ? ******************* //
@@ -237,9 +172,7 @@ object LondonCrime {
 
     val months = readCsv(sparkSession, dataFolder + "months.csv").as("m")
 
-    val crimes = londonCrimes.as("c")
-
-    val crimeByMonth = crimes
+    val crimeByMonth = londonCrimes
       .join(months, $"c.month" === $"m.month_id")
       .groupBy("c.year", "m.month_id","m.month_name")
       .sum("value")
@@ -250,7 +183,7 @@ object LondonCrime {
 
     //crimeByMonthOrdered.show(36)
 
-       val crimeByMonthAvg = crimes
+       val crimeByMonthAvg = londonCrimes
       .join(months, $"c.month" === $"m.month_id")
       .groupBy("c.year", "m.month_id","m.month_name")
       .sum("value")
