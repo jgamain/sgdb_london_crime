@@ -105,13 +105,13 @@ object LondonCrime {
       .save("crimeByMajorCategoryAvg.csv");
 
     val crimeByMinorCategoryAvg = londonCrimes
-      .groupBy("year","minor_category")
+      .groupBy("year","minor_category","major_category")
       .sum("value")
-      .groupBy("minor_category")
+      .groupBy("minor_category","major_category")
       .avg("sum(value)")
       .withColumnRenamed("avg(sum(value))", "averagePerYear")
       .withColumn("averagePerYear", $"averagePerYear".cast(IntegerType))
-      .select("minor_category","averagePerYear")
+      .select("major_category","minor_category","averagePerYear")
 
     //crimeByMinorCategoryAvg.orderBy(desc("averagePerYear")).show(50, false)
 

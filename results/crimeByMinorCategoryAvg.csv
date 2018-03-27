@@ -1,33 +1,33 @@
-minor_category,averagePerYear
-Theft/Taking Of Motor Vehicle,24059
-Other Theft,108898
-Drug Trafficking,3979
-Other Theft Person,34315
-Personal Property,26397
-Other Criminal Damage,16150
-Rape,29
-Business Property,2366
-Going Equipped,614
-Burglary in a Dwelling,54586
-Other Notifiable,11202
-Possession Of Drugs,47994
-Common Assault,45965
-Wounding/GBH,13950
-Other Drugs,333
-Criminal Damage To Other Building,7333
-Theft/Taking of Pedal Cycle,18774
-Offensive Weapon,4220
-Theft From Shops,38349
-Motor Vehicle Interference & Tampering,6247
-Other Sexual,111
-Burglary in Other Buildings,29223
-Murder,105
-Other violence,7864
-Criminal Damage To Motor Vehicle,29495
-Handling Stolen Goods,1788
-Theft From Motor Vehicle,63328
-Criminal Damage To Dwelling,17124
-Assault with Injury,50111
-Counted per Victim,426
-Harassment,50902
-Other Fraud & Forgery,165
+major_category,minor_category,averagePerYear
+Drugs,Possession Of Drugs,47994
+Theft and Handling,Theft From Shops,38349
+Theft and Handling,Theft/Taking of Pedal Cycle,18774
+Theft and Handling,Other Theft Person,34315
+Theft and Handling,Theft From Motor Vehicle,63328
+Fraud or Forgery,Counted per Victim,426
+Theft and Handling,Theft/Taking Of Motor Vehicle,24059
+Other Notifiable Offences,Other Notifiable,11202
+Robbery,Business Property,2366
+Violence Against the Person,Murder,105
+Drugs,Other Drugs,333
+Violence Against the Person,Assault with Injury,50111
+Criminal Damage,Criminal Damage To Other Building,7333
+Other Notifiable Offences,Going Equipped,614
+Sexual Offences,Rape,29
+Criminal Damage,Criminal Damage To Motor Vehicle,29495
+Criminal Damage,Criminal Damage To Dwelling,17124
+Violence Against the Person,Offensive Weapon,4220
+Violence Against the Person,Common Assault,45965
+Violence Against the Person,Other violence,7864
+Violence Against the Person,Wounding/GBH,13950
+Drugs,Drug Trafficking,3979
+Burglary,Burglary in a Dwelling,54586
+Theft and Handling,Motor Vehicle Interference & Tampering,6247
+Theft and Handling,Other Theft,108898
+Fraud or Forgery,Other Fraud & Forgery,165
+Burglary,Burglary in Other Buildings,29223
+Sexual Offences,Other Sexual,111
+Violence Against the Person,Harassment,50902
+Criminal Damage,Other Criminal Damage,16150
+Robbery,Personal Property,26397
+Theft and Handling,Handling Stolen Goods,1788
