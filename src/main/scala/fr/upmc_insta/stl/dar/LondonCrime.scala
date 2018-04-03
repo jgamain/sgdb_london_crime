@@ -14,6 +14,15 @@ object LondonCrime {
       .csv(path)
   }
 
+  def exportCsv(df: DataFrame, fileName: String)={
+    df
+      .repartition(1)
+      .write
+      .format("com.databricks.spark.csv")
+      .option("header",true)
+      .save(fileName);
+  }
+
   def main (arg: Array[String]): Unit = {
 
     val sparkSession = SparkSession.builder
@@ -43,12 +52,7 @@ object LondonCrime {
     //crimeByBoroughOrderByTotal.show(false)
 
     /*EXPORT CSV*/
-    crimeByBorough
-      .repartition(1)
-      .write
-      .format("com.databricks.spark.csv")
-      .option("header",true)
-      .save("crimeByBorough.csv");
+    exportCsv(crimeByBorough, "crimeByBorough.csv");
 
 
     //Taux de criminalité (en pourcentage)
@@ -75,12 +79,7 @@ object LondonCrime {
     //criminality.show(30, false)
 
     /*EXPORT CSV*/
-    criminality
-      .repartition(1)
-      .write
-      .format("com.databricks.spark.csv")
-      .option("header",true)
-      .save("criminality.csv");
+    exportCsv(criminality, "criminality.csv");
 
 
     // ****************** QUELS SONT LES CRIMES LES PLUS COURANTS ? ******************* //
@@ -97,12 +96,8 @@ object LondonCrime {
     //crimeByMajorCategoryAvg.orderBy(desc("averagePerYear")).show(false)
 
     /*EXPORT CSV*/
-    crimeByMajorCategoryAvg
-      .repartition(1)
-      .write
-      .format("com.databricks.spark.csv")
-      .option("header",true)
-      .save("crimeByMajorCategoryAvg.csv");
+    exportCsv(crimeByMajorCategoryAvg, "crimeByMajorCategoryAvg.csv");
+
 
     val crimeByMinorCategoryAvg = londonCrimes
       .groupBy("year","minor_category","major_category")
@@ -116,12 +111,7 @@ object LondonCrime {
     //crimeByMinorCategoryAvg.orderBy(desc("averagePerYear")).show(50, false)
 
     /*EXPORT CSV*/
-    crimeByMinorCategoryAvg
-      .repartition(1)
-      .write
-      .format("com.databricks.spark.csv")
-      .option("header",true)
-      .save("crimeByMinorCategoryAvg.csv");
+    exportCsv(crimeByMinorCategoryAvg, "crimeByMinorCategoryAvg.csv");
 
 
     // ************ QUELS SONT LES CRIMES LES PLUS COURANTS À WESTMINSTER? ******************* //
@@ -139,12 +129,7 @@ object LondonCrime {
     //crimeWestminsterMajorAvg.orderBy(desc("avgPerYear")).show(false)
 
     /*EXPORT CSV*/
-    crimeWestminsterMajorAvg
-      .repartition(1)
-      .write
-      .format("com.databricks.spark.csv")
-      .option("header",true)
-      .save("crimeWestminsterMajorAvg.csv");
+    exportCsv(crimeWestminsterMajorAvg, "crimeWestminsterMajorAvg.csv");
 
     val westminsterTheftsAvg = londonCrimes
       .filter($"borough" === "Westminster")
@@ -161,12 +146,8 @@ object LondonCrime {
 
 
     /*EXPORT CSV*/
-    westminsterTheftsAvg
-      .repartition(1)
-      .write
-      .format("com.databricks.spark.csv")
-      .option("header",true)
-      .save("westminsterTheftsAvg.csv");
+    exportCsv(westminsterTheftsAvg, "westminsterTheftsAvg.csv");
+
 
     // ************ COMMENT ÉVOLUE LE NOMBRE DE CRIMES AU COURT DE L’ANNÉE ? ******************* //
 
@@ -183,25 +164,17 @@ object LondonCrime {
 
     //crimeByMonthOrdered.show(36)
 
-       val crimeByMonthAvg = londonCrimes
-      .join(months, $"c.month" === $"m.month_id")
-      .groupBy("c.year", "m.month_id","m.month_name")
-      .sum("value")
+       val crimeByMonthAvg = crimeByMonth
       .groupBy("m.month_id","m.month_name")
-      .avg("sum(value)")
-      .withColumnRenamed("avg(sum(value))", "average")
+      .avg("total")
+      .withColumnRenamed("avg(total)", "average")
       .withColumn("average", $"average".cast(IntegerType))
       .select("m.month_id", "m.month_name", "average")
 
     val crimeByMonthAvgOrdered = crimeByMonthAvg.orderBy(asc("m.month_id"))
 
     /*EXPORT CSV*/
-    crimeByMonthAvg
-      .repartition(1)
-      .write
-      .format("com.databricks.spark.csv")
-      .option("header",true)
-      .save("crimeByMonthAvg.csv");
+    exportCsv(crimeByMonthAvg, "crimeByMonthAvg.csv");
 
     //crimeByMonthAvgOrdered.show
 
