@@ -24,7 +24,10 @@ object LondonCrime {
   }
 
   def main (arg: Array[String]): Unit = {
-
+  if(arg.length <1){
+    Console.println("Usage : spark-submit --class fr.upmc_insta.stl.dar.LondonCrime --master local target/sgbd-london-crime-1.0-SNAPSHOT.jar [chemin_vers_le_london_crime_by_lsoa.csv] ")
+    return;
+  }
     val sparkSession = SparkSession.builder
       .master("local")
       .appName("LondonCrime")
@@ -33,7 +36,7 @@ object LondonCrime {
 
     val dataFolder = "./"
 
-    val londonCrimes = readCsv(sparkSession, dataFolder + "london_crime_by_lsoa.csv").as("c")
+    val londonCrimes = readCsv(sparkSession, arg(0)).as("c")
 
 
     // ****************** DANS QUELS QUARTIERS LA CRIMINALITÉ EST-ELLE LA PLUS ÉLEVÉE ? ***************** //
