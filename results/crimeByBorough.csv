@@ -1,34 +1,296 @@
-borough,avgCrimesPerYear
-Croydon,28921
-Wandsworth,22749
-Bexley,12681
-Lambeth,32464
-Barking and Dagenham,16605
-Camden,30571
-Greenwich,20174
-Newham,29113
-Tower Hamlets,25401
-Hounslow,20752
-Barnet,23576
-Harrow,12983
-Kensington and Chelsea,19109
-Islington,25587
-Brent,25283
-Haringey,23696
-Bromley,20483
-Merton,12850
-Westminster,50558
-Southwark,30978
-Hackney,24124
-Enfield,21542
-Ealing,27951
-Sutton,11220
-Hammersmith and Fulham,20584
-Kingston upon Thames,9922
-Havering,15438
-Hillingdon,23297
-Waltham Forest,22653
-Richmond upon Thames,10752
-Redbridge,20395
-City of London,86
-Lewisham,23904
+borough,major_category,avgCrimesPerYear
+Newham,Fraud or Forgery,35
+Croydon,Violence Against the Person,7532
+Tower Hamlets,Violence Against the Person,6665
+Lambeth,Other Notifiable Offences,502
+Havering,Criminal Damage,1916
+Sutton,Other Notifiable Offences,154
+Harrow,Sexual Offences,3
+Sutton,Sexual Offences,2
+Bromley,Theft and Handling,7749
+Greenwich,Violence Against the Person,5877
+Havering,Other Notifiable Offences,262
+Westminster,Robbery,1750
+Croydon,Other Notifiable Offences,482
+Brent,Fraud or Forgery,17
+Waltham Forest,Robbery,1178
+Lambeth,Drugs,2787
+Hounslow,Fraud or Forgery,20
+Kingston upon Thames,Sexual Offences,2
+Wandsworth,Fraud or Forgery,17
+Redbridge,Criminal Damage,1949
+Hammersmith and Fulham,Burglary,1890
+Greenwich,Other Notifiable Offences,399
+Hounslow,Other Notifiable Offences,440
+Waltham Forest,Sexual Offences,3
+Redbridge,Robbery,854
+Hounslow,Burglary,2336
+Camden,Robbery,1031
+Lewisham,Violence Against the Person,7072
+Greenwich,Theft and Handling,7213
+Islington,Drugs,1839
+Ealing,Drugs,2065
+Hillingdon,Burglary,2895
+Hackney,Theft and Handling,10124
+Havering,Theft and Handling,5845
+Harrow,Violence Against the Person,3357
+Richmond upon Thames,Sexual Offences,2
+Kingston upon Thames,Criminal Damage,1178
+Redbridge,Theft and Handling,7944
+Enfield,Burglary,3357
+Brent,Burglary,3213
+Croydon,Robbery,1405
+Wandsworth,Theft and Handling,10280
+Brent,Robbery,1385
+Westminster,Sexual Offences,6
+Greenwich,Fraud or Forgery,11
+City of London,Robbery,2
+Merton,Violence Against the Person,3146
+Enfield,Drugs,1472
+Richmond upon Thames,Criminal Damage,1302
+Richmond upon Thames,Theft and Handling,4539
+Kingston upon Thames,Drugs,631
+Greenwich,Sexual Offences,6
+Bromley,Drugs,993
+Hackney,Fraud or Forgery,15
+Kensington and Chelsea,Criminal Damage,1093
+Merton,Other Notifiable Offences,174
+Tower Hamlets,Burglary,2390
+Barking and Dagenham,Drugs,1020
+Richmond upon Thames,Violence Against the Person,2257
+Camden,Fraud or Forgery,13
+Bexley,Theft and Handling,4452
+Barnet,Drugs,1088
+Sutton,Burglary,1467
+Hackney,Sexual Offences,5
+Brent,Sexual Offences,4
+Wandsworth,Drugs,1054
+Havering,Burglary,2366
+Redbridge,Burglary,2970
+Bromley,Sexual Offences,3
+Merton,Drugs,739
+Croydon,Sexual Offences,6
+Croydon,Theft and Handling,10159
+Kensington and Chelsea,Sexual Offences,2
+Bexley,Drugs,816
+Harrow,Other Notifiable Offences,222
+Sutton,Criminal Damage,1608
+Kingston upon Thames,Fraud or Forgery,7
+Wandsworth,Criminal Damage,2181
+Westminster,Theft and Handling,30846
+Croydon,Fraud or Forgery,30
+Haringey,Robbery,1120
+Ealing,Other Notifiable Offences,489
+Lewisham,Robbery,1161
+Hackney,Violence Against the Person,6287
+Waltham Forest,Drugs,1566
+Lewisham,Theft and Handling,7820
+Kingston upon Thames,Other Notifiable Offences,148
+Barking and Dagenham,Burglary,2011
+Harrow,Theft and Handling,4533
+Harrow,Criminal Damage,1413
+Kingston upon Thames,Theft and Handling,4247
+Brent,Violence Against the Person,7019
+Kensington and Chelsea,Other Notifiable Offences,244
+Hackney,Drugs,2016
+Greenwich,Drugs,1204
+Westminster,Criminal Damage,2267
+Newham,Other Notifiable Offences,495
+Richmond upon Thames,Drugs,523
+Southwark,Other Notifiable Offences,521
+Hillingdon,Robbery,629
+Kensington and Chelsea,Theft and Handling,10662
+Westminster,Burglary,3255
+Enfield,Sexual Offences,4
+Hackney,Robbery,997
+Westminster,Drugs,3781
+Redbridge,Fraud or Forgery,31
+Havering,Violence Against the Person,3774
+Hammersmith and Fulham,Drugs,1721
+Hounslow,Sexual Offences,4
+Greenwich,Robbery,603
+City of London,Violence Against the Person,12
+Lambeth,Theft and Handling,12766
+Waltham Forest,Fraud or Forgery,26
+Lewisham,Sexual Offences,7
+Barking and Dagenham,Robbery,678
+Hammersmith and Fulham,Fraud or Forgery,10
+Tower Hamlets,Theft and Handling,9735
+Hillingdon,Drugs,1268
+Newham,Sexual Offences,4
+Enfield,Theft and Handling,7819
+Merton,Burglary,1831
+Barnet,Burglary,4109
+Brent,Other Notifiable Offences,412
+Sutton,Drugs,509
+Haringey,Theft and Handling,9331
+Westminster,Fraud or Forgery,30
+Lambeth,Burglary,3355
+Redbridge,Sexual Offences,3
+Westminster,Violence Against the Person,7938
+Bromley,Other Notifiable Offences,293
+Hillingdon,Other Notifiable Offences,722
+Waltham Forest,Other Notifiable Offences,337
+Lambeth,Violence Against the Person,8080
+Haringey,Drugs,1618
+Newham,Violence Against the Person,7357
+Wandsworth,Violence Against the Person,5096
+Hillingdon,Fraud or Forgery,24
+Barking and Dagenham,Sexual Offences,5
+Croydon,Criminal Damage,3468
+Barnet,Theft and Handling,9698
+Richmond upon Thames,Burglary,1788
+Camden,Burglary,3104
+Hillingdon,Sexual Offences,4
+Lewisham,Fraud or Forgery,29
+Southwark,Theft and Handling,12159
+Tower Hamlets,Criminal Damage,2399
+City of London,Other Notifiable Offences,1
+Hounslow,Theft and Handling,7797
+Havering,Robbery,343
+Barnet,Criminal Damage,2336
+Havering,Sexual Offences,2
+Redbridge,Violence Against the Person,4603
+Ealing,Criminal Damage,2845
+Ealing,Sexual Offences,5
+Bexley,Sexual Offences,2
+Newham,Theft and Handling,11794
+Bromley,Burglary,3015
+Kensington and Chelsea,Violence Against the Person,3285
+Bexley,Criminal Damage,1916
+Haringey,Sexual Offences,4
+Bromley,Robbery,540
+Islington,Robbery,970
+Havering,Fraud or Forgery,19
+Newham,Burglary,2817
+Islington,Fraud or Forgery,9
+Hounslow,Criminal Damage,2378
+City of London,Theft and Handling,62
+Hammersmith and Fulham,Other Notifiable Offences,372
+Richmond upon Thames,Fraud or Forgery,4
+Waltham Forest,Violence Against the Person,5766
+Haringey,Fraud or Forgery,23
+Barnet,Violence Against the Person,5173
+Merton,Robbery,446
+Havering,Drugs,907
+Southwark,Violence Against the Person,7595
+Southwark,Criminal Damage,2716
+Hammersmith and Fulham,Robbery,586
+Barnet,Robbery,819
+Sutton,Theft and Handling,4392
+Bromley,Criminal Damage,2671
+Hounslow,Violence Against the Person,5711
+Richmond upon Thames,Other Notifiable Offences,157
+Hackney,Other Notifiable Offences,370
+Lewisham,Criminal Damage,2756
+Wandsworth,Robbery,933
+Southwark,Sexual Offences,4
+Bexley,Fraud or Forgery,11
+Redbridge,Other Notifiable Offences,291
+Brent,Criminal Damage,2285
+Tower Hamlets,Drugs,2600
+Waltham Forest,Burglary,2840
+Tower Hamlets,Robbery,1116
+City of London,Criminal Damage,1
+Lambeth,Criminal Damage,2904
+Sutton,Robbery,256
+Bexley,Violence Against the Person,3337
+Southwark,Fraud or Forgery,35
+Merton,Sexual Offences,2
+Camden,Violence Against the Person,5890
+Harrow,Drugs,791
+Barking and Dagenham,Criminal Damage,2098
+Wandsworth,Sexual Offences,5
+Richmond upon Thames,Robbery,176
+Waltham Forest,Criminal Damage,2273
+Enfield,Violence Against the Person,5004
+Enfield,Other Notifiable Offences,365
+Kensington and Chelsea,Burglary,1664
+Barking and Dagenham,Fraud or Forgery,22
+Greenwich,Criminal Damage,2528
+Lewisham,Burglary,2763
+Ealing,Fraud or Forgery,19
+Harrow,Burglary,2181
+Barnet,Sexual Offences,4
+Kingston upon Thames,Burglary,1125
+Newham,Criminal Damage,2686
+Sutton,Fraud or Forgery,6
+Bexley,Robbery,259
+Lambeth,Sexual Offences,7
+Ealing,Burglary,3425
+Haringey,Violence Against the Person,5660
+Westminster,Other Notifiable Offences,683
+Southwark,Drugs,3042
+Bexley,Other Notifiable Offences,222
+Islington,Theft and Handling,11962
+Haringey,Criminal Damage,2474
+Hillingdon,Criminal Damage,2720
+Hounslow,Drugs,1524
+Harrow,Robbery,471
+Barking and Dagenham,Theft and Handling,5666
+Islington,Burglary,2467
+Brent,Theft and Handling,8058
+Camden,Sexual Offences,4
+Haringey,Other Notifiable Offences,330
+Camden,Drugs,2424
+Southwark,Robbery,1794
+Lewisham,Other Notifiable Offences,423
+Hammersmith and Fulham,Theft and Handling,9597
+Camden,Criminal Damage,2053
+Kensington and Chelsea,Fraud or Forgery,9
+Haringey,Burglary,3134
+Hammersmith and Fulham,Criminal Damage,1621
+Merton,Fraud or Forgery,12
+Barnet,Other Notifiable Offences,328
+Harrow,Fraud or Forgery,10
+Croydon,Drugs,2129
+Tower Hamlets,Fraud or Forgery,13
+Brent,Drugs,2886
+Greenwich,Burglary,2329
+Wandsworth,Other Notifiable Offences,343
+Bromley,Fraud or Forgery,21
+Hackney,Burglary,2383
+Barnet,Fraud or Forgery,19
+Islington,Criminal Damage,2039
+Lewisham,Drugs,1869
+Kensington and Chelsea,Drugs,1619
+Hillingdon,Theft and Handling,8892
+Kingston upon Thames,Robbery,189
+Bromley,Violence Against the Person,5195
+Ealing,Theft and Handling,10426
+Kingston upon Thames,Violence Against the Person,2393
+Enfield,Robbery,1006
+Tower Hamlets,Sexual Offences,5
+Waltham Forest,Theft and Handling,8660
+Hounslow,Robbery,538
+Camden,Other Notifiable Offences,428
+Newham,Drugs,2043
+Hackney,Criminal Damage,1925
+Enfield,Fraud or Forgery,14
+Enfield,Criminal Damage,2498
+City of London,Burglary,1
+Merton,Theft and Handling,4903
+Merton,Criminal Damage,1593
+Lambeth,Fraud or Forgery,15
+Lambeth,Robbery,2045
+Bexley,Burglary,1663
+Ealing,Robbery,1063
+Barking and Dagenham,Violence Against the Person,4787
+Newham,Robbery,1879
+Tower Hamlets,Other Notifiable Offences,474
+Wandsworth,Burglary,2837
+Islington,Violence Against the Person,5886
+Hammersmith and Fulham,Violence Against the Person,4779
+City of London,Drugs,3
+Camden,Theft and Handling,15621
+Hillingdon,Violence Against the Person,6140
+Kensington and Chelsea,Robbery,527
+Islington,Sexual Offences,4
+Southwark,Burglary,3108
+Croydon,Burglary,3708
+Hammersmith and Fulham,Sexual Offences,5
+Ealing,Violence Against the Person,7610
+Barking and Dagenham,Other Notifiable Offences,313
+Sutton,Violence Against the Person,2823
+Islington,Other Notifiable Offences,408
+Redbridge,Drugs,1748
