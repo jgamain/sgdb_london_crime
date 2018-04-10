@@ -13,4 +13,6 @@ Les fichiers d'input sont :
 
 Nos fichiers de résultat sont dans le dossier "results".
 
+Le code pour obtenir les graphiques est dans le dossier "plots".
+
 
